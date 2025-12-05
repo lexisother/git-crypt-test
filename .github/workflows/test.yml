@@ -7,6 +7,10 @@ jobs:
   deploy:
     name: Test git-crypt-unlock
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        project: [TEST_1, TEST_2, TEST_3]
     steps:
       - uses: actions/checkout@master
 
@@ -18,7 +22,8 @@ jobs:
       - name: Load variables
         uses: lexisother/load-dotenv@v1.2.0
         with:
-          filenames: SECRETS
+          path: ".secrets"
+          filenames: "${{ matrix.project }}.env"
           mask: true
 
       # - name: Expose variables to GitHub Actions
@@ -34,10 +39,6 @@ jobs:
 
       - name: Echo the variables
         run: |
-          echo ${{ env.ONE }}
-          echo ${{ env.TWO }}
-          echo ${{ env.THREE }}
-          echo ${{ env.FOUR }}
-          echo ${{ env.FIVE }}
-          echo ${{ env.SIX }}
-          echo "${{ env.MULTILINE }}"
+          echo ${{ env.VAR_1 }}
+          echo ${{ env.VAR_2 }}
+          echo ${{ env.VAR_3 }}
