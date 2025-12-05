@@ -24,6 +24,7 @@ jobs:
         with:
           path: ".secrets"
           filenames: "${{ matrix.project }}.env"
+          quiet: true
           mask: true
 
       # - name: Expose variables to GitHub Actions
