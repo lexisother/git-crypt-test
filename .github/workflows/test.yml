@@ -22,8 +22,8 @@ jobs:
       - name: Load variables
         uses: lexisother/load-dotenv@v1.2.0
         with:
-          path: ".secrets"
-          filenames: "${{ matrix.project }}.env"
+          path: '.secrets'
+          filenames: '${{ matrix.project }}.env'
           quiet: true
           mask: true
 
@@ -40,6 +40,6 @@ jobs:
 
       - name: Echo the variables
         run: |
-          echo ${{ env.VAR_1 }}
-          echo ${{ env.VAR_2 }}
-          echo ${{ env.VAR_3 }}
+          echo "${{ env.VAR_1 }}"
+          echo "${{ env.VAR_2 }}"
+          echo "${{ env.VAR_3 }}"
