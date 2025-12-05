@@ -18,7 +18,7 @@ jobs:
       - name: Load variables
         uses: lexisother/load-dotenv@v1.2.0
         with:
-          filenames: SECRET
+          filenames: SECRETS
           mask: true
 
       # - name: Expose variables to GitHub Actions
