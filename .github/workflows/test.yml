@@ -2,6 +2,13 @@ name: test
 
 on:
   push:
+  workflow_dispatch:
+    inputs:
+      site:
+        description: 'some val'
+        required: true
+        type: 'boolean'
+        default: false
 
 jobs:
   deploy:
@@ -25,7 +32,16 @@ jobs:
           path: '.secrets'
           filenames: '${{ matrix.project }}.env'
           quiet: true
-          mask: true
+          mask: false
+
+      - name: Load overrides
+        if: inputs.site
+        uses: lexisother/load-dotenv@v1.2.0
+        with:
+          path: '.secrets'
+          filenames: '${{ matrix.project }}_OVERRIDE.env'
+          quiet: true
+          mask: false
 
       # - name: Expose variables to GitHub Actions
       #   run: |
