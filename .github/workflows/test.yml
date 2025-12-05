@@ -16,9 +16,10 @@ jobs:
           GIT_CRYPT_KEY: ${{ secrets.GIT_CRYPT_KEY }}
 
       - name: Load variables
-        uses: xom9ikk/dotenv@v2.3.0
+        uses: lexisother/load-dotenv@v1.2.0
         with:
-          path: SECRETS
+          filenames: SECRET
+          mask: true
 
       # - name: Expose variables to GitHub Actions
       #   run: |
