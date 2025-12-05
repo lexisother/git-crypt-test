@@ -15,16 +15,21 @@ jobs:
         env:
           GIT_CRYPT_KEY: ${{ secrets.GIT_CRYPT_KEY }}
 
-      - name: Expose variables to GitHub Actions
-        run: |
-          eval "$(
-            cat SECRETS | awk '!/^\s*#/' | awk '!/^\s*$/' | while IFS='' read -r line; do
-              key=$(echo "$line" | cut -d '=' -f 1)
-              value=$(echo "$line" | cut -d '=' -f 2-)
-              # echo "echo \"::add-mask::$value\""
-              echo "echo \"$key=\\\"$value\\\"\" >> \"$GITHUB_ENV\""
-            done
-          )"
+      - name: Load variables
+        uses: xom9ikk/dotenv@v2.3.0
+        with:
+          path: SECRETS
+
+      # - name: Expose variables to GitHub Actions
+      #   run: |
+      #     eval "$(
+      #       cat SECRETS | awk '!/^\s*#/' | awk '!/^\s*$/' | while IFS='' read -r line; do
+      #         key=$(echo "$line" | cut -d '=' -f 1)
+      #         value=$(echo "$line" | cut -d '=' -f 2-)
+      #         # echo "echo \"::add-mask::$value\""
+      #         echo "echo \"$key=\\\"$value\\\"\" >> \"$GITHUB_ENV\""
+      #       done
+      #     )"
 
       - name: Echo the variables
         run: |
@@ -34,3 +39,4 @@ jobs:
           echo ${{ env.FOUR }}
           echo ${{ env.FIVE }}
           echo ${{ env.SIX }}
+          echo ${{ env.MULTILINE }}
